@@ -1,0 +1,32 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Item extends Model
+{
+    //
+    protected $table= 'produtos';
+    protected $fillable= ['nome', 'descricao', 'peso', 'unidade_id', 'fornecedor_id'];
+
+    public function itemDetalhe(){
+
+        return $this->hasOne('App\itemDetalhe', 'produto_id', 'id');
+    }
+
+    public function fornecedor(){
+
+        return $this->belongsTo('App\Fornecedor');
+    }
+
+    public function pedidos(){
+        return $this-> belongstoMany('App\Pedido', 'pedido_produtos', 'produto_id', 'pedido_id');
+
+        /*
+            Paramentro 3- Representa o nome da FK da tabela mapeada pelo model na tabela de relacionamento
+            Paramentro 4 - Representa o nome da FK da tabela mapeada pelo model ultilizado no relacionamento que estamos implementando
+        */
+
+    }
+}
